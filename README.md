@@ -1,1 +1,1 @@
-# JavaDBDemo
+# Java simple DataBase Demo
