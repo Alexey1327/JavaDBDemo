@@ -26,7 +26,8 @@ public class FormServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
-            PeoplesRepository.savePeople(new People(
+            PeoplesRepository peoplesRepository = new PeoplesRepository();
+            peoplesRepository.savePeople(new People(
                     request.getParameter(FIRST_NAME_PARAM),
                     request.getParameter(MIDDLE_NAME_PARAM),
                     request.getParameter(LAST_NAME_PARAM),

@@ -8,9 +8,9 @@ import ru.lanit.demodb.entity.People;
 
 public class PeoplesRepository {
 
-    private static final SessionFactory ourSessionFactory;
+    private final SessionFactory ourSessionFactory;
 
-    static {
+    public PeoplesRepository() {
         try {
             Configuration configuration = new Configuration();
             configuration.configure();
@@ -20,11 +20,11 @@ public class PeoplesRepository {
         }
     }
 
-    private static Session getSession() throws HibernateException {
+    private Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
 
-    public static void savePeople(People people) {
+    public void savePeople(People people) {
         try (Session session = getSession()) {
             session.beginTransaction();
             session.save(people);
