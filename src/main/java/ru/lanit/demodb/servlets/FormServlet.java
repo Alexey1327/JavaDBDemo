@@ -1,6 +1,8 @@
 package ru.lanit.demodb.servlets;
 
 import ru.lanit.demodb.JDBC;
+import ru.lanit.demodb.PeoplesRepository;
+import ru.lanit.demodb.entity.People;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,11 +25,20 @@ public class FormServlet extends HttpServlet {
     private final Logger logger = Logger.getLogger(String.valueOf(FormServlet.class));
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        try{
+            PeoplesRepository.savePeople(new People(
+                    request.getParameter(FIRST_NAME_PARAM),
+                    request.getParameter(MIDDLE_NAME_PARAM),
+                    request.getParameter(LAST_NAME_PARAM),
+                    request.getParameter(BIRTH_DATE_PARAM)
+            ));
+            response.getWriter().println("People saved successfully");
+        } catch (Exception e){
+            response.getWriter().println("Something wrong: " + e.getMessage());
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         try {
             JDBC jdbc = new JDBC();
             jdbc.savePeople(
