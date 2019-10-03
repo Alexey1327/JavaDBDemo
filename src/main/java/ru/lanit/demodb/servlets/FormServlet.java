@@ -35,7 +35,7 @@ public class FormServlet extends HttpServlet {
             ));
             response.getWriter().println("People saved successfully");
         } catch (Exception e){
-            response.getWriter().println("Something wrong: " + e.getMessage());
+            throw new ServletException(e.getMessage(), e);
         }
     }
 
