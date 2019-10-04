@@ -24,6 +24,7 @@ public class People {
     }
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public int getId() {
         return id;
@@ -34,6 +35,7 @@ public class People {
     }
 
     @Column(name = "firstname")
+    @Basic(optional = false)
     public String getFirstName() {
         return firstName;
     }
@@ -43,6 +45,7 @@ public class People {
     }
 
     @Column(name = "middlename")
+    @Basic(optional = false)
     public String getMiddleName() {
         return middleName;
     }
@@ -52,6 +55,7 @@ public class People {
     }
 
     @Column(name = "lastname")
+    @Basic(optional = false)
     public String getLastName() {
         return lastName;
     }
@@ -61,6 +65,7 @@ public class People {
     }
 
     @Column(name = "birthdate")
+    @Basic(optional = false)
     public Date getBirthDate() {
         return birthDate;
     }
