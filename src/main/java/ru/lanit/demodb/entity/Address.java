@@ -6,28 +6,37 @@ import javax.persistence.*;
 @Table(name = "address", schema = "db_test")
 public class Address {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    private int peopleId;
+
+    @Column(name = "city", nullable = false)
     private String city;
+
+    @Column(name = "street", nullable = false)
     private String street;
+
+    @Column(name = "house", nullable = false)
     private String house;
+
+    @Column(name = "flat")
     private int flat;
+
+    @ManyToOne
+    @JoinColumn(name = "people_id")
+    private People mPeople;
 
     public Address() {
 
     }
 
-    public Address(int peopleId, String city, String street, String house, int flat) {
-        this.peopleId = peopleId;
+    public Address(String city, String street, String house) {
         this.city = city;
         this.street = street;
         this.house = house;
-        this.flat = flat;
     }
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -36,16 +45,6 @@ public class Address {
         this.id = id;
     }
 
-    @Column(name = "people_id")
-    public int getPeopleId() {
-        return peopleId;
-    }
-
-    public void setPeopleId(int peopleId) {
-        this.peopleId = peopleId;
-    }
-
-    @Column(name = "city")
     public String getCity() {
         return city;
     }
@@ -54,7 +53,6 @@ public class Address {
         this.city = city;
     }
 
-    @Column(name = "street")
     public String getStreet() {
         return street;
     }
@@ -63,7 +61,6 @@ public class Address {
         this.street = street;
     }
 
-    @Column(name = "house")
     public String getHouse() {
         return house;
     }
@@ -72,13 +69,28 @@ public class Address {
         this.house = house;
     }
 
-    @Column(name = "flat")
-    @Basic(optional = true)
     public int getFlat() {
         return flat;
     }
 
     public void setFlat(int flat) {
         this.flat = flat;
+    }
+
+    public People getPeople() {
+        return mPeople;
+    }
+
+    public void setPeople(People people) {
+        this.mPeople = people;
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", город: " + city +
+                ", улица: " + street +
+                ", дом: " + house +
+                ", квартира: " + flat;
     }
 }

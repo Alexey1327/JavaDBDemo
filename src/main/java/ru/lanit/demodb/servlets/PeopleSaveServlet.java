@@ -1,7 +1,7 @@
 package ru.lanit.demodb.servlets;
 
-import ru.lanit.demodb.JDBC;
-import ru.lanit.demodb.PeoplesRepository;
+import ru.lanit.demodb.repository.PeopleRepository;
+import ru.lanit.demodb.entity.Address;
 import ru.lanit.demodb.entity.People;
 
 import javax.servlet.ServletException;
@@ -10,28 +10,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Arrays;
+import java.util.*;
 import java.util.logging.Logger;
 
-@WebServlet(name = "FormServlet", urlPatterns = "/form-save")
-public class FormServlet extends HttpServlet {
+@WebServlet(name = "PeopleSaveServlet", urlPatterns = "/people_save")
+public class PeopleSaveServlet extends HttpServlet {
 
     private static final String FIRST_NAME_PARAM  = "first-name";
     private static final String MIDDLE_NAME_PARAM = "middle-name";
     private static final String LAST_NAME_PARAM   = "last-name";
     private static final String BIRTH_DATE_PARAM  = "birth-date";
 
-    private final Logger logger = Logger.getLogger(String.valueOf(FormServlet.class));
+    private final Logger logger = Logger.getLogger(String.valueOf(PeopleSaveServlet.class));
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
-            PeoplesRepository peoplesRepository = new PeoplesRepository();
+            PeopleRepository peoplesRepository = new PeopleRepository();
+            List<Address> addressList = new ArrayList<>();
             peoplesRepository.savePeople(new People(
                     request.getParameter(FIRST_NAME_PARAM),
                     request.getParameter(MIDDLE_NAME_PARAM),
                     request.getParameter(LAST_NAME_PARAM),
-                    request.getParameter(BIRTH_DATE_PARAM)
+                    request.getParameter(BIRTH_DATE_PARAM),
+                    addressList
             ));
             response.getWriter().println("People saved successfully");
         } catch (Exception e){
@@ -40,17 +41,6 @@ public class FormServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            JDBC jdbc = new JDBC();
-            jdbc.savePeople(
-                request.getParameter(FIRST_NAME_PARAM),
-                request.getParameter(MIDDLE_NAME_PARAM),
-                request.getParameter(LAST_NAME_PARAM),
-                request.getParameter(BIRTH_DATE_PARAM));
-            response.getWriter().println("People saved successfully");
-        } catch (SQLException | ClassNotFoundException e) {
-            this.logger.info(Arrays.toString(e.getStackTrace()));
-            response.getWriter().println("Something wrong: " + e.getMessage());
-        }
+        doPost(request, response);
     }
 }

@@ -8,8 +8,8 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
         <property name="connection.password">mysql</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="ru.lanit.demodb.entity.People"/>
-<!--        <mapping class="ru.lanit.demodb.entity.Address"/>-->
+        <mapping class="ru.lanit.demodb.entity.Address"/>
     </session-factory>
 </hibernate-configuration>
