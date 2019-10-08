@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Database Demo</title>
@@ -8,8 +9,8 @@
     <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
 </head>
 <body>
-<h2>Database Demo</h2>
-
+<%@ include file="menu.jsp" %>
+<h2>Пиплы</h2>
 <script type="text/javascript">
     $(function() {
         $('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
@@ -19,7 +20,7 @@
         var form_data = $(this).serialize();
         $.ajax({
             type: "POST",
-            url: "form-save",
+            url: "people_save",
             data: form_data,
             success: function(result){
                 $("#result").html(result);

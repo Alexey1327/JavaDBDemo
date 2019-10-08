@@ -2,29 +2,44 @@ package ru.lanit.demodb.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "peoples", schema = "db_test")
 public class People {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "middle_name", nullable = false)
     private String middleName;
+
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @Column(name = "birth_date", nullable = false)
     private Date birthDate;
 
-    public People(String firstName, String middleName, String lastName, String birthDate) {
+    @OneToMany(mappedBy = "mPeople", fetch = FetchType.EAGER)
+    private List<Address> addressList;
+
+    public People(String firstName, String middleName, String lastName, String birthDate, List<Address> addressList) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.birthDate = Date.valueOf(birthDate);
+        this.addressList = addressList;
     }
 
     public People() {
 
     }
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -33,7 +48,6 @@ public class People {
         this.id = id;
     }
 
-    @Column(name = "firstname")
     public String getFirstName() {
         return firstName;
     }
@@ -42,7 +56,6 @@ public class People {
         this.firstName = firstname;
     }
 
-    @Column(name = "middlename")
     public String getMiddleName() {
         return middleName;
     }
@@ -51,7 +64,6 @@ public class People {
         this.middleName = middleName;
     }
 
-    @Column(name = "lastname")
     public String getLastName() {
         return lastName;
     }
@@ -60,13 +72,20 @@ public class People {
         this.lastName = lastname;
     }
 
-    @Column(name = "birthdate")
     public Date getBirthDate() {
         return birthDate;
     }
 
     public void setBirthDate(Date birthdate) {
         this.birthDate = birthdate;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
     }
 
     @Override
@@ -97,12 +116,15 @@ public class People {
 
     @Override
     public String toString() {
-        return "People{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
-                '}';
+        return  "Id=" + id + ", " + lastName + " " + firstName + " " + middleName + ", д.р.=" + birthDate ;
+    }
+
+    public String getAddressesAsString() {
+        StringBuilder result = new StringBuilder();
+        for (Address address : this.addressList) {
+            result.append(address).append("<br />\n");
+        }
+
+        return result.toString();
     }
 }
