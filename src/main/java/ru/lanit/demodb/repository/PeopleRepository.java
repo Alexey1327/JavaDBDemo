@@ -9,6 +9,15 @@ import java.util.List;
 
 public class PeopleRepository {
 
+    private static PeopleRepository repoInstance;
+
+    public static PeopleRepository getInstance() {
+        if (repoInstance == null) {
+            repoInstance = new PeopleRepository();
+        }
+        return repoInstance;
+    }
+
     private Session getSession() throws HibernateException {
         return DBSessionFactory.getInstance().openSession();
     }
@@ -21,17 +30,9 @@ public class PeopleRepository {
         }
     }
 
-    public void updatePeople(People people) {
+    public List<People> getPeoples() {
         try (Session session = getSession()) {
-            session.beginTransaction();
-            session.update(people);
-            session.getTransaction().commit();
-        }
-    }
-
-    public List getPeoples() {
-        try (Session session = getSession()) {
-            Query query = session.createQuery("from People");
+            Query query = session.createQuery("select distinct p from People p join fetch p.addressList");
             return query.list();
         }
     }

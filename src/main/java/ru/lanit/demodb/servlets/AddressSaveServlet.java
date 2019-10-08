@@ -27,8 +27,7 @@ public class AddressSaveServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        PeopleRepository peoplesRepository = new PeopleRepository();
-        List peopleList = peoplesRepository.getPeoples();
+        List peopleList = PeopleRepository.getInstance().getPeoples();
         req.setAttribute("peopleList", peopleList);
 
         req.getRequestDispatcher(JSP_PAGE).forward(req,resp);
@@ -43,9 +42,7 @@ public class AddressSaveServlet extends HttpServlet {
             throw new ServletException("People_id is null");
         }
 
-        AddressRepository addressRepository = new AddressRepository();
-        PeopleRepository peoplesRepository = new PeopleRepository();
-        People people = peoplesRepository.getById(peopleId);
+        People people = PeopleRepository.getInstance().getById(peopleId);
 
         if (people == null) {
             throw new ServletException(String.format("People with id %s not found", peopleId));
@@ -62,7 +59,7 @@ public class AddressSaveServlet extends HttpServlet {
         }
 
         address.setPeople(people);
-        addressRepository.saveAddress(address);
+        AddressRepository.getInstance().saveAddress(address);
 
         resp.getWriter().println("Address saved successfully");
     }
