@@ -1,5 +1,7 @@
 package ru.lanit.demodb.servlets;
 
+import ru.lanit.demodb.dto.DtoService;
+import ru.lanit.demodb.dto.PeopleDto;
 import ru.lanit.demodb.repository.PeopleRepository;
 
 import javax.servlet.ServletException;
@@ -18,9 +20,8 @@ public class PeopleInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        PeopleRepository peoplesRepository = new PeopleRepository();
-        List peopleList = peoplesRepository.getPeoples();
-        req.setAttribute("peopleList", peopleList);
+        List<PeopleDto> peopleListDto = DtoService.getInstance().getPeoplesData();
+        req.setAttribute("peopleListDto", peopleListDto);
 
         req.getRequestDispatcher(JSP_PAGE).forward(req,resp);
     }

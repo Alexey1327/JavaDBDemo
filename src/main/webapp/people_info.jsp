@@ -19,7 +19,7 @@
         <td>Пипл</td>
         <td>Квартиры</td>
     </tr>
-    <c:forEach items="${peopleList}" var="people">
+    <c:forEach items="${peopleListDto}" var="people">
         <tr>
             <td>${people.toString()}</td>
             <td>${people.getAddressesAsString()}</td>

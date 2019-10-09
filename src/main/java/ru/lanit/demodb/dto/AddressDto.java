@@ -1,40 +1,23 @@
-package ru.lanit.demodb.entity;
+package ru.lanit.demodb.dto;
 
-import javax.persistence.*;
+public class AddressDto {
 
-@Entity
-@Table(name = "address", schema = "db_test")
-public class Address {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "street", nullable = false)
     private String street;
 
-    @Column(name = "house", nullable = false)
     private String house;
 
-    @Column(name = "flat")
     private int flat;
 
-    @ManyToOne
-    @JoinColumn(name = "people_id")
-    private People mPeople;
-
-    public Address() {
-
-    }
-
-    public Address(String city, String street, String house) {
+    public AddressDto(int id, String city, String street, String house, int flat) {
+        this.id = id;
         this.city = city;
         this.street = street;
         this.house = house;
+        this.flat = flat;
     }
 
     public int getId() {
@@ -77,11 +60,12 @@ public class Address {
         this.flat = flat;
     }
 
-    public People getPeople() {
-        return mPeople;
-    }
-
-    public void setPeople(People people) {
-        this.mPeople = people;
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", город: " + city +
+                ", улица: " + street +
+                ", дом: " + house +
+                ", квартира: " + flat;
     }
 }

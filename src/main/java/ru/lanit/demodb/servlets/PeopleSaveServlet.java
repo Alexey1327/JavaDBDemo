@@ -25,9 +25,8 @@ public class PeopleSaveServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
-            PeopleRepository peoplesRepository = new PeopleRepository();
             List<Address> addressList = new ArrayList<>();
-            peoplesRepository.savePeople(new People(
+            PeopleRepository.getInstance().savePeople(new People(
                     request.getParameter(FIRST_NAME_PARAM),
                     request.getParameter(MIDDLE_NAME_PARAM),
                     request.getParameter(LAST_NAME_PARAM),
