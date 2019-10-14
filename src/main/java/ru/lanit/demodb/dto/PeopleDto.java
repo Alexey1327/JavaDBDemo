@@ -48,7 +48,7 @@ public class PeopleDto {
         return addressList;
     }
 
-    void setAddressList(List<AddressDto> addressList) {
+    public void setAddressList(List<AddressDto> addressList) {
         this.addressList = addressList;
     }
 

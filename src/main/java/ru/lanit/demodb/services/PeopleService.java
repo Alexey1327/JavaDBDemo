@@ -1,5 +1,7 @@
-package ru.lanit.demodb.dto;
+package ru.lanit.demodb.services;
 
+import ru.lanit.demodb.dto.AddressDto;
+import ru.lanit.demodb.dto.PeopleDto;
 import ru.lanit.demodb.entity.Address;
 import ru.lanit.demodb.entity.People;
 import ru.lanit.demodb.repository.PeopleRepository;
@@ -7,15 +9,15 @@ import ru.lanit.demodb.repository.PeopleRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DtoService {
+public class PeopleService {
 
-    private static DtoService dtoService;
+    private static PeopleService peopleService;
 
-    public static DtoService getInstance() {
-        if (dtoService == null) {
-            dtoService = new DtoService();
+    public static PeopleService getInstance() {
+        if (peopleService == null) {
+            peopleService = new PeopleService();
         }
-        return dtoService;
+        return peopleService;
     }
 
     public List<PeopleDto> getPeoplesData() {

@@ -1,20 +1,22 @@
-package ru.lanit.demodb.servlets;
+package ru.lanit.demodb.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ru.lanit.demodb.entity.Address;
 import ru.lanit.demodb.entity.People;
 import ru.lanit.demodb.repository.AddressRepository;
 import ru.lanit.demodb.repository.PeopleRepository;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "AddressSaveServlet", urlPatterns = "/address_save")
-public class AddressSaveServlet extends HttpServlet {
+@Controller
+@RequestMapping("/address_save")
+public class AddressSaveController {
 
     private final static String JSP_PAGE = "address_save.jsp";
 
@@ -24,7 +26,7 @@ public class AddressSaveServlet extends HttpServlet {
     private static final String HOUSE_PARAM = "house";
     private static final String STREET_PARAM = "street";
 
-    @Override
+    @RequestMapping(method = RequestMethod.GET)
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List peopleList = PeopleRepository.getInstance().getPeoples();
@@ -33,7 +35,7 @@ public class AddressSaveServlet extends HttpServlet {
         req.getRequestDispatcher(JSP_PAGE).forward(req,resp);
     }
 
-    @Override
+    @RequestMapping(method = RequestMethod.POST)
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         int peopleId = Integer.parseInt(req.getParameter(PEOPLE_ID_PARAM));
