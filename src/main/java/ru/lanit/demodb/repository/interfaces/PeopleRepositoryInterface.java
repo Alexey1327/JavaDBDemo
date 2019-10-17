@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface PeopleRepositoryInterface {
 
-    public void savePeople(People people);
+    void savePeople(People people);
 
-    public List<People> getPeoples();
+    List<People> getPeoples();
 
-    public People getById(int peopleId);
+    People getById(int peopleId);
 }

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import ru.lanit.demodb.entity.Address;
 import ru.lanit.demodb.entity.People;
@@ -55,6 +56,7 @@ public class AddressSaveController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
     public String addressSaveAction(
             @RequestParam(name = PEOPLE_ID_PARAM_NAME) Integer peopleId,
             @RequestParam(name = CITY_PARAM_NAME) String cityName,

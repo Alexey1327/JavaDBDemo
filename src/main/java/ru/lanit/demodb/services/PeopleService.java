@@ -1,9 +1,7 @@
 package ru.lanit.demodb.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.lanit.demodb.dto.AddressDto;
 import ru.lanit.demodb.dto.PeopleDto;
 import ru.lanit.demodb.entity.Address;
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
 public class PeopleService {
 
     private PeopleRepositoryInterface peopleRepository;
