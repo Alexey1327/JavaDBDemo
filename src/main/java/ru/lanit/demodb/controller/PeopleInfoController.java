@@ -1,34 +1,37 @@
 package ru.lanit.demodb.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import ru.lanit.demodb.services.PeopleService;
 import ru.lanit.demodb.dto.PeopleDto;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/people_info")
+@Transactional
 public class PeopleInfoController {
 
-    private final static String JSP_PAGE = "people_info.jsp";
+    private final static String JSP_PAGE = "people_info";
 
-    @RequestMapping(method = RequestMethod.GET)
-    private void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private PeopleService peopleService;
 
-        List<PeopleDto> peopleListDto = PeopleService.getInstance().getPeoplesData();
-        req.setAttribute("peopleListDto", peopleListDto);
-
-        req.getRequestDispatcher(JSP_PAGE).forward(req,resp);
+    @Autowired
+    public PeopleInfoController(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView getPeopleInfoAction() {
+        Map<String, List<PeopleDto>> map = new HashMap<>();
+        List<PeopleDto> peopleListDto = peopleService.getPeoplesData();
+        map.put("peopleListDto", peopleListDto);
+        return new ModelAndView(JSP_PAGE, map);
     }
 }

@@ -1,28 +1,32 @@
 package ru.lanit.demodb.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.lanit.demodb.dto.AddressDto;
 import ru.lanit.demodb.dto.PeopleDto;
 import ru.lanit.demodb.entity.Address;
 import ru.lanit.demodb.entity.People;
-import ru.lanit.demodb.repository.PeopleRepository;
+import ru.lanit.demodb.repository.interfaces.PeopleRepositoryInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@Transactional(readOnly = true)
 public class PeopleService {
 
-    private static PeopleService peopleService;
+    private PeopleRepositoryInterface peopleRepository;
 
-    public static PeopleService getInstance() {
-        if (peopleService == null) {
-            peopleService = new PeopleService();
-        }
-        return peopleService;
+    @Autowired
+    public PeopleService(PeopleRepositoryInterface peopleRepository) {
+        this.peopleRepository = peopleRepository;
     }
 
     public List<PeopleDto> getPeoplesData() {
         
-        List<People> peoples = PeopleRepository.getInstance().getPeoples();
+        List<People> peoples = peopleRepository.getPeoples();
         List<PeopleDto> list = new ArrayList<>();
 
         for (People people : peoples) {

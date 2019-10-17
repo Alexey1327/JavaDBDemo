@@ -3,24 +3,30 @@ package ru.lanit.demodb.repository;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.lanit.demodb.entity.People;
+import ru.lanit.demodb.repository.interfaces.PeopleRepositoryInterface;
 
 import java.util.List;
 
-public class PeopleRepository {
+@Component
+@Transactional(readOnly = true)
+public class PeopleRepository implements PeopleRepositoryInterface {
 
-    private static PeopleRepository repoInstance;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-    public static PeopleRepository getInstance() {
-        if (repoInstance == null) {
-            repoInstance = new PeopleRepository();
-        }
-        return repoInstance;
+    protected Session getSession() {
+        return this.sessionFactory.getCurrentSession();
     }
 
-    private Session getSession() throws HibernateException {
-        return DBSessionFactory.getInstance().openSession();
-    }
+
+//    private Session getSession() throws HibernateException {
+//        return DBSessionFactory.getInstance().openSession();
+//    }
 
     public void savePeople(People people) {
         try (Session session = getSession()) {
@@ -32,7 +38,7 @@ public class PeopleRepository {
 
     public List<People> getPeoples() {
         try (Session session = getSession()) {
-            Query query = session.createQuery("select distinct p from People p join fetch p.addressList");
+            Query query = session.createQuery("select distinct p from People p left join fetch p.addressList");
             return query.list();
         }
     }
