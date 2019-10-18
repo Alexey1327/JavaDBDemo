@@ -50,7 +50,7 @@ public class AddressSaveController {
     @RequestMapping(method = RequestMethod.GET)
     protected ModelAndView addressFormAction() {
         Map<String, List<People>> map = new HashMap<>();
-        List<People> peopleList = peopleRepository.getPeoples();
+        List<People> peopleList = peopleRepository.getPeoplesLazy();
         map.put("peopleList", peopleList);
         return new ModelAndView(JSP_PAGE, map);
     }

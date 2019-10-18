@@ -15,7 +15,6 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/people_info")
-@Transactional
 public class PeopleInfoController {
 
     private final static String JSP_PAGE = "people_info";

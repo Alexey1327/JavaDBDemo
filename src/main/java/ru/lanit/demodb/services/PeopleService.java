@@ -23,7 +23,7 @@ public class PeopleService {
 
     public List<PeopleDto> getPeoplesData() {
         
-        List<People> peoples = peopleRepository.getPeoples();
+        List<People> peoples = peopleRepository.getPeoplesInfo();
         List<PeopleDto> list = new ArrayList<>();
 
         for (People people : peoples) {

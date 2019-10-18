@@ -25,7 +25,7 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "people_id")
-    private People mPeople;
+    private People people;
 
     public Address() {
 
@@ -78,10 +78,10 @@ public class Address {
     }
 
     public People getPeople() {
-        return mPeople;
+        return people;
     }
 
     public void setPeople(People people) {
-        this.mPeople = people;
+        this.people = people;
     }
 }
