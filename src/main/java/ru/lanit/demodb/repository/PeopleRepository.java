@@ -30,10 +30,16 @@ public class PeopleRepository implements PeopleRepositoryInterface {
         getSession().save(people);
     }
 
-    public List<People> getPeoples() {
+    public List<People> getPeoplesInfo() {
         Query<People> query = getSession().createQuery("select distinct p from People p left join fetch p.addressList", People.class);
         return query.list();
     }
+
+    public List<People> getPeoplesLazy() {
+        Query<People> query = getSession().createQuery("from People", People.class);
+        return query.list();
+    }
+
 
     public People getById(int peopleId) {
         return getSession().get(People.class, peopleId);

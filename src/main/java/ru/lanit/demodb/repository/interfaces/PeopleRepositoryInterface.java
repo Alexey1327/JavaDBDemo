@@ -8,7 +8,9 @@ public interface PeopleRepositoryInterface {
 
     void savePeople(People people);
 
-    List<People> getPeoples();
+    List<People> getPeoplesInfo();
+
+    List<People> getPeoplesLazy();
 
     People getById(int peopleId);
 }
