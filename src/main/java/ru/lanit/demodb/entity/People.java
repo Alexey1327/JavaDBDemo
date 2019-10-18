@@ -25,7 +25,7 @@ public class People {
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;
 
-    @OneToMany(mappedBy = "mPeople", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "people", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addressList;
 
     public People(String firstName, String middleName, String lastName, String birthDate, List<Address> addressList) {
@@ -114,6 +114,7 @@ public class People {
         return result;
     }
 
+    @Transient
     public String getFio() {
         return lastName + " " + firstName + " " + middleName;
     }

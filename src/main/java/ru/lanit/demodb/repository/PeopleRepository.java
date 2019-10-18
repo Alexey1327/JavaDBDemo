@@ -1,8 +1,8 @@
 package ru.lanit.demodb.repository;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +31,8 @@ public class PeopleRepository implements PeopleRepositoryInterface {
     }
 
     public List<People> getPeoples() {
-        Query query = getSession().createQuery("select distinct p from People p left join fetch p.addressList");
-        return  query.list();
+        Query<People> query = getSession().createQuery("select distinct p from People p left join fetch p.addressList", People.class);
+        return query.list();
     }
 
     public People getById(int peopleId) {
