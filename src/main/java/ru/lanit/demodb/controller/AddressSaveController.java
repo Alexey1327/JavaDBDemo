@@ -20,7 +20,6 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/address_save")
-@Transactional
 public class AddressSaveController {
 
     private final static String JSP_PAGE = "address_save";
@@ -57,6 +56,7 @@ public class AddressSaveController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
+    @Transactional
     public String addressSaveAction(
             @RequestParam(name = PEOPLE_ID_PARAM_NAME) Integer peopleId,
             @RequestParam(name = CITY_PARAM_NAME) String cityName,

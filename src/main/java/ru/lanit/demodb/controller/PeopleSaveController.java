@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/people_save")
-@Transactional
 public class PeopleSaveController {
 
     private static final String FIRST_NAME_PARAM  = "first-name";
@@ -40,7 +39,8 @@ public class PeopleSaveController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    private String peopleSaveAction(
+    @Transactional
+    public String peopleSaveAction(
             @RequestParam(name = FIRST_NAME_PARAM) String firstName,
             @RequestParam(name = MIDDLE_NAME_PARAM) String middleName,
             @RequestParam(name = LAST_NAME_PARAM) String lastName,
